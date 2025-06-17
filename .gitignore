@@ -24,3 +24,6 @@ build/
 *.swp
 .DS_Store
 
+# Ignorera genererade ljudfiler
+*.mp3
+*.wav
