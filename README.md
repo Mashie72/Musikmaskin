@@ -5,13 +5,13 @@ Sedan kör en valbar spårseparation med hjälp av python libbet DEMUCS som anv�
 Dessa hamnar under Separated mappen som Wav filer
 I downloadsmappen sparas MP3 filen
 
-- Kända problem
+Kända problem
 - Downloads mappen måste skapas manuellt första gången
 - Du måste manuellt flytta MP3 filen från downloads till MP3 archive mappen (eller radera MP3 filen) innan du kan göra en ny stämseparation.
 - Open output folder knappen fungerar ej.
 
 Vad behöver du för att köra python programmet?
-Python saker
+Python saker (använd installationsinstruktionerna längre ner för att få rätt versioner mm)
 - tkinter , för GUI
 - Numpy under version 2.0 , DEMUCS använder detta
 - DEMUCS , AI stämseparatorn
@@ -20,4 +20,22 @@ Python saker
 System
 - ffmpeg , MPEG mm encoder måste installeras i systemet med "sudo apt install ffmpeg" eller liknande beroede på ditt system.
 
-
+Installationsinstruktioner
+- Använd någon Linux/Unix (jag har testat på Mac, RaspberryPi  samt Windows WSL) 
+(För att installera Windows WSL (öppna CMD som admin och kör: wsl --install)
+- klona repot:
+bash
+git clone https://github.com/Mashie72/Musikmaskin.git
+cd Musikmaskin
+- Skapa ett virtual environment för Python
+(om du inte vill installera globalt)
+bash
+python3 -m venv .venv
+source .venv/bin/activate
+- Installera alla paket från requirements.txt
+bash
+pip install -r requirements.txt
+Det kommer installera exakt de paket (och versioner) som behövs
+- Kör programmet 
+bash
+python3 yt_dl_sep_gui2.py
