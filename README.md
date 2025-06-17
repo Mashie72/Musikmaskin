@@ -23,6 +23,7 @@ System
 Installationsinstruktioner
 - Använd någon Linux/Unix (jag har testat på Mac, RaspberryPi  samt Windows WSL) 
 (För att installera Windows WSL (öppna CMD som admin och kör: wsl --install)
+- Installera Git sudo apt update sudo apt install git
 - klona repot:
 bash
 git clone https://github.com/Mashie72/Musikmaskin.git
