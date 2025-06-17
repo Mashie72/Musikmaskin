@@ -1,0 +1,26 @@
+# Python cache
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pkl
+
+# Virtual environments
+.venv/
+env/
+venv/
+
+# VS Code settings
+.vscode/
+
+# Distribution artifacts
+dist/
+build/
+*.egg-info/
+
+# Loggar och tillfälliga filer
+*.log
+*.tmp
+*.swp
+.DS_Store
+
