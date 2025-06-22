@@ -21,8 +21,10 @@ System
 - ffmpeg , MPEG mm encoder måste installeras i systemet med "sudo apt install ffmpeg" eller liknande beroede på ditt system.
 
 Installationsinstruktioner
-- Använd någon Linux/Unix (jag har testat på Mac, RaspberryPi  samt Windows WSL) 
+- Använd någon Linux/Unix med support för X grafiskt gränssnitt (jag har testat på Mac, RaspberryPi  samt Windows WSL) 
 (För att installera Windows WSL (öppna CMD som admin och kör: wsl --install)
+- Windows WSL saknar X server per default, så tkinter (GUI motorn) kommer inte fungera om du inte också installerar en X server i Windows.
+- Det bör i princip fungera på Windows "native" också, då skippar du WSL installationen ovan och du fårmladda ner python från python.org's webplats, då kommer (troligen) GUI't fungera utan extra förberedelser.
 - Installera Git sudo apt update sudo apt install git
 - klona repot:
 bash
