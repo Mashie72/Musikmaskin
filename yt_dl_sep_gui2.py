@@ -6,23 +6,21 @@ from tkinter import messagebox
 
 # Hemkatalog
 HOME_DIR = os.path.expanduser("~/")
-DOWNLOAD_DIR = os.path.join(HOME_DIR, "musikmaskin")
+DOWNLOAD_DIR = os.path.join(HOME_DIR, "musikmaskin", "downloads")
 
 def download_audio(youtube_url):
     os.makedirs(DOWNLOAD_DIR, exist_ok=True)
     command = [
         "yt-dlp",
-        "-k",
+        
         "--extract-audio",
         "--audio-format", "mp3",
         "--output", f"{DOWNLOAD_DIR}/%(title)s.%(ext)s",
         youtube_url
     ]
     subprocess.run(command, check=True)
-#Hej
-#detta blir bra
-#Branch testning
 
+# tar sista MP3 i downloads, du måste manuellt radera gamla då den kan ta fel annars
 def find_latest_mp3():
     files = [f for f in os.listdir(DOWNLOAD_DIR) if f.endswith(".mp3")]
     if not files:
@@ -45,7 +43,7 @@ def separate_stems(mp3_path, mode):
     subprocess.run(command, check=True)
 
 def open_output_folder():
-    sep_dir = os.path.join(HOME_DIR, "separated")
+    sep_dir = os.path.join(HOME_DIR, "musikmaskin", "separated" ,"htdemucs")
     if os.path.exists(sep_dir):
         subprocess.run(["open", sep_dir])
     else:
