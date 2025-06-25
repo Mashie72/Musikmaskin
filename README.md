@@ -6,7 +6,6 @@ Dessa hamnar under Separated mappen som Wav filer
 I downloadsmappen sparas MP3 filen
 
 Kända problem
-- Downloads mappen måste skapas manuellt första gången
 - Du måste manuellt flytta MP3 filen från downloads till MP3 archive mappen (eller radera MP3 filen) innan du kan göra en ny stämseparation.
 - Open output folder knappen fungerar ej.
 
@@ -33,8 +32,8 @@ cd Musikmaskin
 - Skapa ett virtual environment för Python
 (om du inte vill installera globalt)
 bash
-python3 -m venv .venv
-source .venv/bin/activate
+python3 -m venv .venv #notera att det är annan syntax för detta i CMD om du kör python i windows
+source .venv/bin/activate #se ovan
 - Installera alla paket från requirements.txt
 bash
 pip install -r requirements.txt
