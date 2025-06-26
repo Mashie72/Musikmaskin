@@ -31,3 +31,5 @@ build/
 # Gamla filer och stämkatalog för ljudfiler
 old/
 separated/
+downloads/
+*.spec
