@@ -1,3 +1,4 @@
 demucs==4.0.1
 numpy==1.26.4
 yt-dlp==2025.6.9
+soundfile>=0.12.1

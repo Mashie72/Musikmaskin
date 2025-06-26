@@ -1,26 +1,32 @@
 import os
-import subprocess
 import sys
 import tkinter as tk
 from tkinter import messagebox
+from yt_dlp import YoutubeDL
+import shutil
 
 # Hemkatalog
-HOME_DIR = os.path.expanduser("~/")
+HOME_DIR = os.path.expanduser("~")
 DOWNLOAD_DIR = os.path.join(HOME_DIR, "musikmaskin", "downloads")
+ARCHIVE_DIR = os.path.join(DOWNLOAD_DIR, "mp3archive")
+
 
 def download_audio(youtube_url):
     os.makedirs(DOWNLOAD_DIR, exist_ok=True)
-    command = [
-        "yt-dlp",
-        
-        "--extract-audio",
-        "--audio-format", "mp3",
-        "--output", f"{DOWNLOAD_DIR}/%(title)s.%(ext)s",
-        youtube_url
-    ]
-    subprocess.run(command, check=True)
+    ydl_opts = {
+        'format': 'bestaudio/best',
+        'outtmpl': f'{DOWNLOAD_DIR}/%(title)s.%(ext)s',
+        'postprocessors': [{
+            'key': 'FFmpegExtractAudio',
+            'preferredcodec': 'mp3',
+            'preferredquality': '192',
+        }],
+        'keepvideo': False,
+    }
+    with YoutubeDL(ydl_opts) as ydl:
+        ydl.download([youtube_url])
 
-# tar sista MP3 i downloads, du måste manuellt radera gamla då den kan ta fel annars
+
 def find_latest_mp3():
     files = [f for f in os.listdir(DOWNLOAD_DIR) if f.endswith(".mp3")]
     if not files:
@@ -28,26 +34,27 @@ def find_latest_mp3():
     files.sort(key=lambda x: os.path.getmtime(os.path.join(DOWNLOAD_DIR, x)), reverse=True)
     return os.path.join(DOWNLOAD_DIR, files[0])
 
+
 def separate_stems(mp3_path, mode):
     if mode == "two":
-        command = [
-            "demucs",
-            "--two-stems", "vocals",
-            mp3_path
-        ]
-    else:  # mode == "four"
-        command = [
-            "demucs",
-            mp3_path
-        ]
-    subprocess.run(command, check=True)
+        command = ["demucs", "--two-stems", "vocals", mp3_path]
+    else:
+        command = ["demucs", mp3_path]
+    os.system(' '.join(f'"{arg}"' if ' ' in arg else arg for arg in command))
+
 
 def open_output_folder():
-    sep_dir = os.path.join(HOME_DIR, "musikmaskin", "separated" ,"htdemucs")
+    sep_dir = os.path.join(HOME_DIR, "musikmaskin", "separated", "htdemucs")
     if os.path.exists(sep_dir):
-        subprocess.run(["open", sep_dir])
+        if sys.platform.startswith("win"):
+            os.startfile(sep_dir)
+        elif sys.platform == "darwin":
+            os.system(f"open '{sep_dir}'")
+        else:
+            os.system(f"xdg-open '{sep_dir}'")
     else:
         messagebox.showerror("Fel", "Ingen utdatamapp hittades.")
+
 
 def run_process():
     url = url_entry.get().strip()
@@ -69,12 +76,17 @@ def run_process():
         window.update()
         separate_stems(mp3_path, stem_mode.get())
 
+        # Flytta MP3 till arkiv
+        os.makedirs(ARCHIVE_DIR, exist_ok=True)
+        shutil.move(mp3_path, os.path.join(ARCHIVE_DIR, os.path.basename(mp3_path)))
+
         status_label.config(text="✅ Klar! Klicka för att visa filer.")
         open_button.config(state="normal")
 
-    except subprocess.CalledProcessError as e:
+    except Exception as e:
         messagebox.showerror("Fel", f"Något gick fel:\n{e}")
         status_label.config(text="❌ Fel uppstod.")
+
 
 # 🖼️ GUI
 window = tk.Tk()
@@ -103,3 +115,4 @@ status_label = tk.Label(window, text="")
 status_label.pack()
 
 window.mainloop()
+
