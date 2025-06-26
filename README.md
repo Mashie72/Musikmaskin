@@ -1,23 +1,25 @@
 # Musikmaskin
 
-Detta lilla program tar en Youtube länk och extraherar Audio till MP.3
+Detta lilla program tar en Youtube länk och extraherar Audio till MP3
 Sedan kör en valbar spårseparation med hjälp av python libbet DEMUCS som använder AI modeller för att sortera ut sång bas trummor och övrigt. 
 Dessa hamnar under Separated mappen som Wav filer
-I downloadsmappen sparas MP3 filen
+I downloadsmappen sparas senaste MP3 filenm om separering lyckas flyttas den till MP3archive mappen
 
 Kända problem
-- Du måste manuellt flytta MP3 filen från downloads till MP3 archive mappen (eller radera MP3 filen) innan du kan göra en ny stämseparation.
-- Open output folder knappen fungerar ej.
+- 
 
-Vad behöver du för att köra python programmet?
+Vad behöver du för att köra programmet?
+Du har .exe (Windows) och .dmg (Mac) under "releases" den kräver bara ffmpeg (inte ett pythonlib, utan en extension för ditt OS)
+Vill du köra programmet med python i ditt system?
 Python saker (använd installationsinstruktionerna längre ner för att få rätt versioner mm)
 - tkinter , för GUI
 - Numpy under version 2.0 , DEMUCS använder detta
+- Simpleaudio, för att det skall gå att spara Wav filer mm.
 - DEMUCS , AI stämseparatorn
 - YT-dlp , För att konvertera YT streams till filer.
 
 System
-- ffmpeg , MPEG mm encoder måste installeras i systemet med "sudo apt install ffmpeg" eller liknande beroede på ditt system.
+- ffmpeg , MPEG mm encoder/decoder måste installeras i systemet med "sudo apt install ffmpeg" eller liknande beroede på ditt system. (lite krångligare i Windows)
 
 Installationsinstruktioner
 - Använd någon Linux/Unix med support för X grafiskt gränssnitt (jag har testat på Mac, RaspberryPi  samt Windows WSL) 
