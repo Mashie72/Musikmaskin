@@ -5,10 +5,10 @@ Sedan kör en valbar spårseparation med hjälp av python libbet DEMUCS som anv�
 Dessa hamnar under Separated mappen som Wav filer
 I downloadsmappen sparas senaste MP3 filenm om separering lyckas flyttas den till MP3archive mappen
 
-Kända problem
-- 
+# Kända problem
+- Inga just nu
 
-Vad behöver du för att köra programmet?
+# Vad behöver du för att köra programmet?
 Du har .exe (Windows) och .dmg (Mac) under "releases" den kräver bara ffmpeg (inte ett pythonlib, utan en extension för ditt OS)
 Vill du köra programmet med python i ditt system?
 Python saker (använd installationsinstruktionerna längre ner för att få rätt versioner mm)
@@ -18,7 +18,7 @@ Python saker (använd installationsinstruktionerna längre ner för att få rät
 - DEMUCS , AI stämseparatorn
 - YT-dlp , För att konvertera YT streams till filer.
 
-System
+# System
 - ffmpeg , MPEG mm encoder/decoder måste installeras i systemet med "sudo apt install ffmpeg" eller liknande beroede på ditt system. (lite krångligare i Windows)
 
 Installationsinstruktioner
