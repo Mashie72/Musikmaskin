@@ -11,6 +11,7 @@ DOWNLOAD_DIR = os.path.join(HOME_DIR, "musikmaskin", "downloads")
 ARCHIVE_DIR = os.path.join(DOWNLOAD_DIR, "mp3archive")
 
 
+
 def download_audio(youtube_url):
     os.makedirs(DOWNLOAD_DIR, exist_ok=True)
     ydl_opts = {
@@ -43,17 +44,23 @@ def separate_stems(mp3_path, mode):
     os.system(' '.join(f'"{arg}"' if ' ' in arg else arg for arg in command))
 
 
+def is_wsl():
+    return "microsoft" in os.uname().release.lower()
+
 def open_output_folder():
     sep_dir = os.path.join(HOME_DIR, "musikmaskin", "separated", "htdemucs")
-    if os.path.exists(sep_dir):
-        if sys.platform.startswith("win"):
-            os.startfile(sep_dir)
-        elif sys.platform == "darwin":
-            os.system(f"open '{sep_dir}'")
-        else:
-            os.system(f"xdg-open '{sep_dir}'")
+    if not os.path.exists(sep_dir):
+        messagebox.showerror("Fel", "Katalogen hittades inte:\n" + sep_dir)
+        return
+
+    if sys.platform.startswith("win"):
+        os.startfile(sep_dir)
+    elif sys.platform == "darwin":
+        os.system(f"open '{sep_dir}'")
+    elif is_wsl():
+        os.system(f"explorer.exe '{sep_dir}'")
     else:
-        messagebox.showerror("Fel", "Ingen utdatamapp hittades.")
+        os.system(f"xdg-open '{sep_dir}'")
 
 
 def run_process():
