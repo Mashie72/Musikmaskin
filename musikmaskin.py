@@ -1,6 +1,7 @@
 import os
 import sys
 import tkinter as tk
+from tkinter import ttk
 from tkinter import messagebox
 from yt_dlp import YoutubeDL
 import shutil
@@ -94,6 +95,13 @@ def run_process():
         messagebox.showerror("Fel", f"Något gick fel:\n{e}")
         status_label.config(text="❌ Fel uppstod.")
 
+# init saker
+#if sys.platform.startswith("win"):
+#    window.iconbitmap("ikon.ico")
+default_font = ("Segoe UI", 11)  # Windows-fint, fallback-kompatibelt
+label_font = ("Segoe UI", 12, "bold")
+url_entry.config(font=default_font)
+status_label.config(font=label_font)
 
 # 🖼️ GUI
 window = tk.Tk()
@@ -101,24 +109,24 @@ window.title("🎵 Musikmaskin")
 window.geometry("500x240")
 window.resizable(False, False)
 
-tk.Label(window, text="YouTube-länk:").pack(pady=(10, 0))
-url_entry = tk.Entry(window, width=60)
+ttk.Label(window, text="YouTube-länk:").pack(pady=(10, 0))
+url_entry = ttk.Entry(window, width=60)
 url_entry.pack(pady=5)
 
 # Radioknappar för stämval
 stem_mode = tk.StringVar(value="two")
-frame = tk.Frame(window)
+frame = ttk.Frame(window)
 frame.pack()
-tk.Label(frame, text="🎛️ Separationsläge:").pack(anchor="w")
-tk.Radiobutton(frame, text="🎙️ 2 stämmor (Sång + musik)", variable=stem_mode, value="two").pack(anchor="w")
-tk.Radiobutton(frame, text="🎚️ 4 stämmor (Sång, trummor, bas, övrigt)", variable=stem_mode, value="four").pack(anchor="w")
+ttk.Label(frame, text="🎛️ Separationsläge:").pack(anchor="w")
+ttk.Radiobutton(frame, text="🎙️ 2 stämmor (Sång + musik)", variable=stem_mode, value="two").pack(anchor="w")
+ttk.Radiobutton(frame, text="🎚️ 4 stämmor (Sång, trummor, bas, övrigt)", variable=stem_mode, value="four").pack(anchor="w")
 
-tk.Button(window, text="Ladda ner och separera", command=run_process).pack(pady=5)
+ttk.Button(window, text="Ladda ner och separera", command=run_process).pack(pady=5)
 
 open_button = tk.Button(window, text="📂 Öppna utdatan", command=open_output_folder, state="disabled")
 open_button.pack(pady=5)
 
-status_label = tk.Label(window, text="")
+status_label = ttk.Label(window, text="")
 status_label.pack()
 
 window.mainloop()
