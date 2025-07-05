@@ -8,7 +8,7 @@ import shutil
 
 # Hemkatalog
 HOME_DIR = os.path.expanduser("~")
-DOWNLOAD_DIR = os.path.join(HOME_DIR, "musikmaskin", "downloads")
+DOWNLOAD_DIR = os.path.join(HOME_DIR, "Musikmaskin", "downloads")
 ARCHIVE_DIR = os.path.join(DOWNLOAD_DIR, "mp3archive")
 
 
@@ -49,7 +49,7 @@ def is_wsl():
     return "microsoft" in os.uname().release.lower()
 
 def open_output_folder():
-    sep_dir = os.path.join(HOME_DIR, "musikmaskin", "separated", "htdemucs")
+    sep_dir = os.path.join(HOME_DIR, "Musikmaskin", "separated", "htdemucs")
     if not os.path.exists(sep_dir):
         messagebox.showerror("Fel", "Katalogen hittades inte:\n" + sep_dir)
         return
@@ -95,19 +95,17 @@ def run_process():
         messagebox.showerror("Fel", f"Något gick fel:\n{e}")
         status_label.config(text="❌ Fel uppstod.")
 
-# init saker
-#if sys.platform.startswith("win"):
-#    window.iconbitmap("ikon.ico")
-default_font = ("Segoe UI", 11)  # Windows-fint, fallback-kompatibelt
-label_font = ("Segoe UI", 12, "bold")
-url_entry.config(font=default_font)
-status_label.config(font=label_font)
+
 
 # 🖼️ GUI
 window = tk.Tk()
 window.title("🎵 Musikmaskin")
-window.geometry("500x240")
+window.geometry("500x280")
 window.resizable(False, False)
+
+# Font saker
+default_font = ("Segoe UI", 11)
+bold_font = ("Segoe UI", 12, "bold")
 
 ttk.Label(window, text="YouTube-länk:").pack(pady=(10, 0))
 url_entry = ttk.Entry(window, width=60)
@@ -117,9 +115,9 @@ url_entry.pack(pady=5)
 stem_mode = tk.StringVar(value="two")
 frame = ttk.Frame(window)
 frame.pack()
-ttk.Label(frame, text="🎛️ Separationsläge:").pack(anchor="w")
+ttk.Label(frame, text="🎚️ Separationsläge:", font=bold_font).pack(anchor="w")
 ttk.Radiobutton(frame, text="🎙️ 2 stämmor (Sång + musik)", variable=stem_mode, value="two").pack(anchor="w")
-ttk.Radiobutton(frame, text="🎚️ 4 stämmor (Sång, trummor, bas, övrigt)", variable=stem_mode, value="four").pack(anchor="w")
+ttk.Radiobutton(frame, text="🎛️ 4 stämmor (Sång, trummor, bas, övrigt)", variable=stem_mode, value="four").pack(anchor="w")
 
 ttk.Button(window, text="Ladda ner och separera", command=run_process).pack(pady=5)
 
