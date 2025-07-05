@@ -1,0 +1,128 @@
+# 🎵 Musikmaskin – Build & Release Instructions
+
+Version: v1.0.2
+Datum: 2025-06-25
+
+---
+
+## 🧱 Allmänt
+
+För att bygga binärer behöver du:
+
+- Python 3.11 eller 3.12 (rek. samma som projektets venv)
+- Virtuell miljö (venv)
+- PyInstaller (`pip install pyinstaller`)
+- Projektfiler: `musikmaskin.py`, `requirements.txt`, ev. `.ico`, `README.md`, etc.
+- (Mac) Använd Homebrew för dependencies
+- (WSL/Linux) Kontrollera att `ffmpeg`, `python3-tk`, `soundfile` etc är installerat
+
+---
+
+## 🖥️ Windows (PC) – Skapa .exe
+
+1. Aktivera venv:
+   ```bash
+   venv\\Scripts\\activate
+Installera dependencies:
+
+bash
+Kopiera
+Redigera
+pip install -r requirements.txt
+Bygg .exe:
+
+bash
+Kopiera
+Redigera
+pyinstaller --onefile --noconsole --icon=musikmaskin.ico musikmaskin.py
+Klar .exe finns i:
+
+bash
+Kopiera
+Redigera
+dist/musikmaskin.exe
+Packa för release:
+
+bash
+Kopiera
+Redigera
+zip musikmaskin-win-v1.0.2.zip dist/musikmaskin.exe README.md ffmpeg.exe
+🍏 macOS (Intel) – Skapa .app / terminal-binära
+Aktivera venv:
+
+bash
+Kopiera
+Redigera
+source venv/bin/activate
+Installera:
+
+bash
+Kopiera
+Redigera
+pip install -r requirements.txt
+Bygg:
+
+bash
+Kopiera
+Redigera
+pyinstaller --onefile --windowed --icon=musikmaskin.icns musikmaskin.py
+Binär finns i:
+
+bash
+Kopiera
+Redigera
+dist/musikmaskin
+Packa som:
+
+bash
+Kopiera
+Redigera
+zip musikmaskin-mac-v1.0.2.zip dist/musikmaskin README.md
+🐧 Linux / WSL – Skapa ELF-binär
+Aktivera venv:
+
+bash
+Kopiera
+Redigera
+source venv/bin/activate
+Installera beroenden:
+
+bash
+Kopiera
+Redigera
+sudo apt install ffmpeg python3-tk python3-pip
+pip install -r requirements.txt
+Bygg:
+
+bash
+Kopiera
+Redigera
+pyinstaller --onefile musikmaskin.py
+Binär:
+
+bash
+Kopiera
+Redigera
+dist/musikmaskin
+Packa:
+
+bash
+Kopiera
+Redigera
+zip musikmaskin-linux-v1.0.2.zip dist/musikmaskin README.md
+🚀 Skapa GitHub Release
+Gå till repo → "Releases" → "Draft new release"
+
+Tag name: v1.0.2
+
+Title: v1.0.2 – Första multiplattformsrelease
+
+Dra in:
+
+musikmaskin-win-v1.0.2.zip
+
+musikmaskin-mac-v1.0.2.zip
+
+musikmaskin-linux-v1.0.2.zip
+
+Klicka "Publish release"
