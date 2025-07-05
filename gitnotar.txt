@@ -1,0 +1,18 @@
+# Starta förbättring i dev
+git checkout dev
+# fix, commit, push
+
+# Starta ny funktion
+git checkout -b feature/player
+
+# När spelaren funkar:
+git checkout dev
+git merge feature/player
+git push
+
+# När du vill släppa version
+git checkout main
+git merge dev
+git tag v1.2.0
+git push --tags
+
