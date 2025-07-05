@@ -4,6 +4,9 @@ git checkout dev
 
 # Starta ny funktion
 git checkout -b feature/player
+git push -u origin feature/player
+# Fixa o dona
+git push
 
 # När spelaren funkar:
 git checkout dev
