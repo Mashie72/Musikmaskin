@@ -6,7 +6,8 @@ Dessa hamnar under Separated mappen som Wav filer
 I downloadsmappen sparas senaste MP3 filenm om separering lyckas flyttas den till MP3archive mappen
 
 # Kända problem
-- Inga just nu
+- Under Linux kan du ev. installera en font som supportar emojis, programmet ser ut som skaparen tänkte då, men fungerar utan också.
+- sudo apt install fonts-noto-color-emoji
 
 # Vad behöver du för att köra programmet?
 Du har .exe (Windows) och .dmg (Mac) under "releases" den kräver bara ffmpeg (inte ett pythonlib, utan en extension för ditt OS)
