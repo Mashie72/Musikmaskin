@@ -5,6 +5,7 @@ from tkinter import ttk
 from tkinter import messagebox
 from yt_dlp import YoutubeDL
 import shutil
+import subprocess
 
 # Hemkatalog
 HOME_DIR = os.path.expanduser("~")
@@ -15,6 +16,7 @@ ARCHIVE_DIR = os.path.join(DOWNLOAD_DIR, "mp3archive")
 
 def download_audio(youtube_url):
     os.makedirs(DOWNLOAD_DIR, exist_ok=True)
+    ffmpeg_path = os.path.dirname(sys.executable) if getattr(sys, "frozen", False) else shutil.which("ffmpeg")
     ydl_opts = {
         'format': 'bestaudio/best',
         'outtmpl': f'{DOWNLOAD_DIR}/%(title)s.%(ext)s',
@@ -24,6 +26,9 @@ def download_audio(youtube_url):
             'preferredquality': '192',
         }],
         'keepvideo': False,
+        "ffmpeg_location": ffmpeg_path,
+        "hls_prefer_native": False,
+        "noplaylist": True,
     }
     with YoutubeDL(ydl_opts) as ydl:
         ydl.download([youtube_url])
@@ -38,11 +43,18 @@ def find_latest_mp3():
 
 
 def separate_stems(mp3_path, mode):
+    # Outputkatalog 
+    out_dir = os.path.join(HOME_DIR, "Musikmaskin", "separated")
+    args = [sys.executable, "-m", "demucs", "-o", out_dir] # kör modul istället för CLI
+   
+
     if mode == "two":
-        command = ["demucs", "--two-stems", "vocals", mp3_path]
-    else:
-        command = ["demucs", mp3_path]
-    os.system(' '.join(f'"{arg}"' if ' ' in arg else arg for arg in command))
+        args += ["--two-stems", "vocals"]
+
+    args += [mp3_path]
+
+    # visa fel i konsolen när du bygger med --console (bra vid debug)
+    subprocess.run(args, check=True)
 
 
 def is_wsl():
